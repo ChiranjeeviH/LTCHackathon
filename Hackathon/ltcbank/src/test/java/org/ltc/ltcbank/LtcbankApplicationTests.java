@@ -8,6 +8,7 @@ class LtcbankApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }

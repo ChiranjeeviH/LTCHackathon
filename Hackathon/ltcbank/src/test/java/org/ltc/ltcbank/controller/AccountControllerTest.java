@@ -8,6 +8,7 @@ import org.ltc.ltcbank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
@@ -30,6 +31,7 @@ public class AccountControllerTest {
     private UserService userService;
 
     @Test
+    @WithMockUser(username = "user", roles = {"USER"})
     public void testGetBalance() throws Exception {
         Account account = new Account();
         account.setId(1L);
@@ -44,6 +46,7 @@ public class AccountControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user", roles = {"USER"})
     public void testGetAccounts() throws Exception {
         User user = new User();
         user.setId(1L);
