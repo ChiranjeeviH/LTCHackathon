@@ -13,11 +13,11 @@ import lombok.Setter;
 
 @Entity
 @Table(name="user_info")
-@Setter
+/*@Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
-public class User {
+@AllArgsConstructor*/
+public record User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
