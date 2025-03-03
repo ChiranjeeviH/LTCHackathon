@@ -21,7 +21,7 @@ public class TransactionService {
 
     public Transaction transferFunds(Account fromAccount, Account toAccount, Double amount) {
         // Implement the logic for transferring funds
-        // For now, just return a new Transaction object
+        // For now, just returning a new Transaction object
         Transaction transaction = new Transaction();
         transaction.setFromAccountId(fromAccount.getId());
         transaction.setToAccountId(toAccount.getId());

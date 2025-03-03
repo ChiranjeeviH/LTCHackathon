@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/transactions")
@@ -20,14 +21,17 @@ public class TransactionController {
 
     @GetMapping("/{accountId}/transactions")
     public List<Transaction> getTransactions(@PathVariable Long accountId) {
-        Account account = accountService.findById(accountId);
-        return transactionService.getTransactions(account);
+        Optional<Account> account = accountService.findById(accountId);
+        return account.map(transactionService::getTransactions).orElse(null);
     }
 
     @PostMapping("/transfer")
     public Transaction transferFunds(@RequestBody TransferRequest transferRequest) {
-        Account fromAccount = accountService.findById(transferRequest.getFromAccountId());
-        Account toAccount = accountService.findById(transferRequest.getToAccountId());
-        return transactionService.transferFunds(fromAccount, toAccount, transferRequest.getAmount());
+        Optional<Account> fromAccount = accountService.findById(transferRequest.getFromAccountId());
+        Optional<Account> toAccount = accountService.findById(transferRequest.getToAccountId());
+        if (fromAccount.isPresent() && toAccount.isPresent()) {
+            return transactionService.transferFunds(fromAccount.get(), toAccount.get(), transferRequest.getAmount());
+        }
+        return null;
     }
 }

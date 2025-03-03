@@ -5,10 +5,7 @@ import org.ltc.ltcbank.entity.User;
 import org.ltc.ltcbank.service.AccountService;
 import org.ltc.ltcbank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +26,10 @@ public class AccountController {
     public List<Account> getAccounts(@PathVariable Long userId) {
         User user = userService.findById(userId);
         return accountService.getAccounts(user);
+    }
+
+    @PostMapping("/create")
+    public Account createAccount(@RequestBody Account account) {
+        return accountService.createAccount(account);
     }
 }
