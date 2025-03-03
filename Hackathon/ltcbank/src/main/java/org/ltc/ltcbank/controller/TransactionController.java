@@ -1,5 +1,6 @@
 package org.ltc.ltcbank.controller;
 
+import org.ltc.ltcbank.dto.TransactionDTO;
 import org.ltc.ltcbank.dto.TransferRequest;
 import org.ltc.ltcbank.entity.Account;
 import org.ltc.ltcbank.entity.Transaction;
@@ -33,5 +34,10 @@ public class TransactionController {
             return transactionService.transferFunds(fromAccount.get(), toAccount.get(), transferRequest.getAmount());
         }
         return null;
+    }
+
+    @GetMapping("/getAllTransactions")
+    public List<TransactionDTO> getAllTransaction() {
+        return transactionService.getAllTransaction();
     }
 }

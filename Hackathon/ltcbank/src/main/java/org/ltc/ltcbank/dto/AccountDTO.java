@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class AccountDTO {
     private Long id;
-    private String accountNumber;
+    private Long accountNumber;
     private Double balance;
     private UserDTO user;
 }

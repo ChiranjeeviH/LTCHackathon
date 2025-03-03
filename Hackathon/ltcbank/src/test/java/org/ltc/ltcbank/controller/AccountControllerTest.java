@@ -74,14 +74,14 @@ public class AccountControllerTest {
     public void testCreateAccount() throws Exception {
         Account account = new Account();
         account.setId(1L);
-        account.setAccountNumber("ACC123456");
+        account.setAccountNumber(123456L);
         account.setBalance(0.0);
 
         when(accountService.createAccount(any(Account.class))).thenReturn(account);
 
         mockMvc.perform(post("/api/accounts/create")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"accountNumber\":\"ACC123456\",\"balance\":0.0}"))
+                        .content("{\"accountNumber\":123456,\"balance\":0.0}"))
                 .andExpect(status().isOk());
 
         verify(accountService, times(1)).createAccount(any(Account.class));

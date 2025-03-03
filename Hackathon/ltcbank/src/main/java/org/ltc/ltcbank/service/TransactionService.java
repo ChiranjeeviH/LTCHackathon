@@ -1,8 +1,10 @@
 package org.ltc.ltcbank.service;
 
+import org.ltc.ltcbank.dto.TransactionDTO;
 import org.ltc.ltcbank.entity.Account;
 import org.ltc.ltcbank.entity.Transaction;
 import org.ltc.ltcbank.repository.TransactionRepository;
+import org.ltc.ltcbank.utility.TransactionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +30,11 @@ public class TransactionService {
         transaction.setAmount(amount);
         transaction.setTimestamp(LocalDateTime.now());
         return transactionRepository.save(transaction);
+    }
+
+    public List<TransactionDTO> getAllTransaction() {
+        List<Transaction> transactionsList =  transactionRepository.findAll();
+
+        return TransactionUtil.getAlTransactionDTO(transactionsList);
     }
 }

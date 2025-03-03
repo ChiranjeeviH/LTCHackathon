@@ -4,7 +4,7 @@ import org.ltc.ltcbank.dto.AccountDTO;
 import org.ltc.ltcbank.entity.Account;
 import org.ltc.ltcbank.entity.User;
 import org.ltc.ltcbank.repository.AccountRepository;
-import org.ltc.ltcbank.utility.AccountDTOUtil;
+import org.ltc.ltcbank.utility.AccountUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class AccountService {
     public List<AccountDTO> getAccounts(User user) {
          List<Account> accounts =  accountRepository.findByUser(user);
 
-         return AccountDTOUtil.convertToDTO(accounts);
+         return AccountUtil.convertToDTO(accounts);
     }
 
     public Account createAccount(Account account) {

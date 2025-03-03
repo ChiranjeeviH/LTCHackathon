@@ -1,14 +1,12 @@
 package org.ltc.ltcbank.utility;
 
 import org.ltc.ltcbank.dto.AccountDTO;
-import org.ltc.ltcbank.dto.UserDTO;
 import org.ltc.ltcbank.entity.Account;
-import org.ltc.ltcbank.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountDTOUtil {
+public class AccountUtil {
 
     public static List<AccountDTO> convertToDTO(List<Account> account) {
         List<AccountDTO> accountDTOs = new ArrayList<>();

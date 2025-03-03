@@ -32,8 +32,8 @@ public class UserController {
         account.setUser(registeredUser);
         account.setAccountNumber(generateAccountNumber());
         account.setBalance(user.getInitialBalance()!=null ? user.getInitialBalance() : 0.0);
-        accountService.createAccount(account);
-        return "Account Created Successfully";
+        Account savedAccount = accountService.createAccount(account);
+        return "Account Created Successfully" + savedAccount.getAccountNumber();
     }
 
     @PostMapping("/login")
@@ -46,10 +46,9 @@ public class UserController {
         return userService.logout();
     }
 
-    private String generateAccountNumber() {
-        String prefix = "ACC";
+    private Long generateAccountNumber() {
         long timestamp = System.currentTimeMillis();
-        int randomNumber = new Random().nextInt(900000) + 100000; // 6-digit random number
-        return prefix + timestamp + randomNumber;
+        int randomNumber = new Random().nextInt(900000) + 100000;
+        return timestamp + randomNumber;
     }
 }
