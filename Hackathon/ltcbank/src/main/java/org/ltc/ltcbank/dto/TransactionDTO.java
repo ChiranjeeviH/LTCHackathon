@@ -11,5 +11,5 @@ public class TransactionDTO {
     private Long toAccountId;
     private Double amount;
     private String timestamp;
-    private Long accountId;
+   // private Long accountId;
 }

@@ -34,4 +34,8 @@ public class AccountService {
     public Optional<Account> findById(Long accountId) {
         return accountRepository.findById(accountId);
     }
+
+    public Account findByAccountNumber(Long accountNumber) {
+         return accountRepository.findByAccountNumber(accountNumber);
+    }
 }

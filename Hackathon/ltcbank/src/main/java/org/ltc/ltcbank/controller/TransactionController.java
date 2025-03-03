@@ -7,8 +7,11 @@ import org.ltc.ltcbank.entity.Transaction;
 import org.ltc.ltcbank.service.AccountService;
 import org.ltc.ltcbank.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,10 +31,10 @@ public class TransactionController {
 
     @PostMapping("/transfer")
     public Transaction transferFunds(@RequestBody TransferRequest transferRequest) {
-        Optional<Account> fromAccount = accountService.findById(transferRequest.getFromAccountId());
-        Optional<Account> toAccount = accountService.findById(transferRequest.getToAccountId());
-        if (fromAccount.isPresent() && toAccount.isPresent()) {
-            return transactionService.transferFunds(fromAccount.get(), toAccount.get(), transferRequest.getAmount());
+        Account fromAccount = accountService.findByAccountNumber(transferRequest.getFromAccountId());
+        Account toAccount = accountService.findByAccountNumber(transferRequest.getToAccountId());
+        if (!ObjectUtils.isEmpty(fromAccount) && !ObjectUtils.isEmpty(toAccount)) {
+            return transactionService.transferFunds(fromAccount, toAccount, transferRequest.getAmount());
         }
         return null;
     }
