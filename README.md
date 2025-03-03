@@ -1,0 +1,2 @@
+# LTCHackathon
+LTC hackathon
