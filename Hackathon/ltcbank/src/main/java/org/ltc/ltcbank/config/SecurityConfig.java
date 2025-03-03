@@ -46,11 +46,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/h2-console/**","/swagger-ui/**", " /v3/api-docs/**","/**").permitAll()
+                        .requestMatchers("/h2-console/**","/swagger-ui/**", "/v3/api-docs/**","/**").permitAll()
                 )
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/h2-console/**","/swagger-ui/**"," /v3/api-docs/**","/**"));
+                        .ignoringRequestMatchers("/h2-console/**","/swagger-ui/**","/v3/api-docs/**","/**"));
 
         return http.build();
     }
