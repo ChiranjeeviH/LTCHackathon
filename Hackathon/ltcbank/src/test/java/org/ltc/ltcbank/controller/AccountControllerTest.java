@@ -2,6 +2,7 @@ package org.ltc.ltcbank.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.ltc.ltcbank.dto.AccountDTO;
 import org.ltc.ltcbank.entity.Account;
 import org.ltc.ltcbank.entity.User;
 import org.ltc.ltcbank.service.AccountService;
@@ -46,7 +47,7 @@ public class AccountControllerTest {
         account.setId(1L);
         account.setBalance(100.0);
 
-        when(accountService.getBalance(1L)).thenReturn(account);
+        when(accountService.getBalance(1L)).thenReturn(account.getBalance());
 
         mockMvc.perform(get("/api/accounts/1/balance"))
                 .andExpect(status().isOk());
@@ -60,7 +61,7 @@ public class AccountControllerTest {
         user.setId(1L);
 
         when(userService.findById(1L)).thenReturn(user);
-        when(accountService.getAccounts(user)).thenReturn(Collections.singletonList(new Account()));
+        when(accountService.getAccounts(user)).thenReturn(Collections.singletonList(new AccountDTO()));
 
         mockMvc.perform(get("/api/accounts/1/accounts"))
                 .andExpect(status().isOk());

@@ -1,9 +1,12 @@
 package org.ltc.ltcbank.controller;
 
+import org.ltc.ltcbank.dto.LoginRequest;
+import org.ltc.ltcbank.dto.UserDTO;
 import org.ltc.ltcbank.entity.Account;
 import org.ltc.ltcbank.entity.User;
 import org.ltc.ltcbank.service.AccountService;
 import org.ltc.ltcbank.service.UserService;
+import org.ltc.ltcbank.utility.UserInfoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,24 +21,24 @@ public class UserController {
     private AccountService accountService;
 
     @GetMapping("/{userId}")
-    public User getUser(@PathVariable Long userId) {
-        return userService.findById(userId);
+    public UserDTO getUser(@PathVariable Long userId) {
+        return UserInfoUtil.convertToDTO(userService.findById(userId));
     }
 
     @PostMapping("/register")
-    public User register(@RequestBody User user) {
+    public String register(@RequestBody User user) {
         User registeredUser = userService.register(user);
         Account account = new Account();
         account.setUser(registeredUser);
         account.setAccountNumber(generateAccountNumber());
-        account.setBalance(0.0);
+        account.setBalance(user.getInitialBalance()!=null ? user.getInitialBalance() : 0.0);
         accountService.createAccount(account);
-        return registeredUser;
+        return "Account Created Successfully";
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody User user) {
-        return userService.login(user);
+    public String login(@RequestBody LoginRequest loginRequest) {
+        return userService.login(loginRequest.getUsername(), loginRequest.getPassword());
     }
 
     @PostMapping("/logout")

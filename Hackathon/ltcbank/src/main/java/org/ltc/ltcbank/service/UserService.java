@@ -28,10 +28,10 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    public String login(User user) {
-        User existingUser = userRepository.findByUsername(user.getUsername())
+    public String login(String userName, String password) {
+        User existingUser = userRepository.findByUsername(userName)
                 .orElseThrow(() -> new RuntimeException("Invalid username or password"));
-        if (passwordEncoder.matches(user.getPassword(), existingUser.getPassword())) {
+        if (passwordEncoder.matches(password, existingUser.getPassword())) {
             return "Login successful";
         } else {
             throw new RuntimeException("Invalid username or password");

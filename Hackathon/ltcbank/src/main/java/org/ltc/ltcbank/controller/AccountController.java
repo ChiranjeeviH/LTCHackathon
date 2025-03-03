@@ -1,5 +1,6 @@
 package org.ltc.ltcbank.controller;
 
+import org.ltc.ltcbank.dto.AccountDTO;
 import org.ltc.ltcbank.entity.Account;
 import org.ltc.ltcbank.entity.User;
 import org.ltc.ltcbank.service.AccountService;
@@ -18,12 +19,12 @@ public class AccountController {
     private UserService userService;
 
     @GetMapping("/{accountId}/balance")
-    public Account getBalance(@PathVariable Long accountId) {
+    public Double getBalance(@PathVariable Long accountId) {
         return accountService.getBalance(accountId);
     }
 
     @GetMapping("/{userId}/accounts")
-    public List<Account> getAccounts(@PathVariable Long userId) {
+    public List<AccountDTO> getAccounts(@PathVariable Long userId) {
         User user = userService.findById(userId);
         return accountService.getAccounts(user);
     }
