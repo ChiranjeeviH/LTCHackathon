@@ -33,7 +33,7 @@ public class UserController {
         account.setAccountNumber(generateAccountNumber());
         account.setBalance(user.getInitialBalance()!=null ? user.getInitialBalance() : 0.0);
         Account savedAccount = accountService.createAccount(account);
-        return "Account Created Successfully" + savedAccount.getAccountNumber();
+        return "Account Created Successfully " + savedAccount.getAccountNumber();
     }
 
     @PostMapping("/login")
