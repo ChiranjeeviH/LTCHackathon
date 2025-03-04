@@ -22,4 +22,14 @@ public class TransactionUtil {
 
         return transactionDTOS;
     }
+
+    public static TransactionDTO getTransactionDTO(Transaction transaction) {
+        TransactionDTO transactionDTO = new TransactionDTO();
+        transactionDTO.setId(transaction.getId());
+        transactionDTO.setFromAccountId(transaction.getFromAccountId());
+        transactionDTO.setToAccountId(transaction.getToAccountId());
+        transactionDTO.setAmount(transaction.getAmount());
+        transactionDTO.setTimestamp(transaction.getTimestamp().toString());
+        return transactionDTO;
+    }
 }

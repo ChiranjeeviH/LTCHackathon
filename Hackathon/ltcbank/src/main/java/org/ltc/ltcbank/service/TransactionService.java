@@ -21,7 +21,7 @@ public class TransactionService {
         return transactionRepository.findByAccountId(account.getId());
     }
 
-    public Transaction transferFunds(Account fromAccount, Account toAccount, Double amount) {
+    public TransactionDTO transferFunds(Account fromAccount, Account toAccount, Double amount) {
         // Implement the logic for transferring funds
         // For now, just returning a new Transaction object
         Transaction transaction = new Transaction();
@@ -29,7 +29,7 @@ public class TransactionService {
         transaction.setToAccountId(toAccount.getId());
         transaction.setAmount(amount);
         transaction.setTimestamp(LocalDateTime.now());
-        return transactionRepository.save(transaction);
+        return TransactionUtil.getTransactionDTO(transactionRepository.save(transaction));
     }
 
     public List<TransactionDTO> getAllTransaction() {
