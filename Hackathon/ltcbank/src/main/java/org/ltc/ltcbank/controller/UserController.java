@@ -1,6 +1,7 @@
 package org.ltc.ltcbank.controller;
 
 import org.ltc.ltcbank.dto.LoginRequest;
+import org.ltc.ltcbank.dto.UserAccount;
 import org.ltc.ltcbank.dto.UserDTO;
 import org.ltc.ltcbank.entity.Account;
 import org.ltc.ltcbank.entity.User;
@@ -20,9 +21,9 @@ public class UserController {
     @Autowired
     private AccountService accountService;
 
-    @GetMapping("/{userId}")
-    public UserDTO getUser(@PathVariable Long userId) {
-        return UserInfoUtil.convertToDTO(userService.findById(userId));
+    @GetMapping("/getUser/{userEmail}")
+    public UserAccount getUser(@PathVariable String userEmail) {
+        return userService.findByEmail(userEmail);
     }
 
     @PostMapping("/register")
@@ -37,7 +38,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest loginRequest) {
+    public UserAccount login(@RequestBody LoginRequest loginRequest) {
+
         return userService.login(loginRequest.getUsername(), loginRequest.getPassword());
     }
 
@@ -51,4 +53,5 @@ public class UserController {
         int randomNumber = new Random().nextInt(900000) + 100000;
         return timestamp + randomNumber;
     }
+
 }

@@ -17,7 +17,7 @@ public class AccountService {
     private AccountRepository accountRepository;
 
     public Double getBalance(Long accountId) {
-        return accountRepository.findById(accountId).get().getBalance();
+        return accountRepository.findByAccountNumber(accountId).getBalance();
     }
 
     public List<AccountDTO> getAccounts(User user) {
