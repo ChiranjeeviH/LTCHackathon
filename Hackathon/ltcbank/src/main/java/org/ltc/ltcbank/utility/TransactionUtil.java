@@ -17,6 +17,7 @@ public class TransactionUtil {
             transactionDTO.setToAccountId(transaction.getToAccountId());
             transactionDTO.setAmount(transaction.getAmount());
             transactionDTO.setTimestamp(transaction.getTimestamp().toString());
+            transactionDTO.setTransactionId(transaction.getTransactionId());
             transactionDTOS.add(transactionDTO);
         }
 
