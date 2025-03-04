@@ -24,7 +24,13 @@ public class TransactionController {
     @GetMapping("/{accountId}/transactions")
     public List<Transaction> getTransactions(@PathVariable Long accountId) {
         Optional<Account> account = accountService.findById(accountId);
-        return account.map(transactionService::getTransactions).orElse(null);
+        return account.map(transactionService::  getTransactions).orElse(null);
+    }
+
+    @GetMapping("/{transactionId}")
+    public Transaction getTransactionDetails(@PathVariable Long transactionId) {
+        Optional<Transaction> transaction = Optional.ofNullable(transactionService.getTransactionDetails(transactionId));
+        return transaction.orElse(null);
     }
 
     @PostMapping("/transfer")

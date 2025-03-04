@@ -5,6 +5,7 @@ import org.ltc.ltcbank.entity.Account;
 import org.ltc.ltcbank.entity.Transaction;
 import org.ltc.ltcbank.repository.AccountRepository;
 import org.ltc.ltcbank.repository.TransactionRepository;
+import org.ltc.ltcbank.utility.AccountUtil;
 import org.ltc.ltcbank.utility.TransactionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,10 @@ public class TransactionService {
         return transactionRepository.findByAccountId(account.getId());
     }
 
+    public Transaction getTransactionDetails(Long transactionId) {
+        return transactionRepository.findByTransactionId(transactionId);
+    }
+
     public TransactionDTO transferFunds(Account fromAccount, Account toAccount, Double amount) {
         if (fromAccount.getBalance() < amount) {
             throw new RuntimeException("Insufficient funds to transfer");
@@ -35,7 +40,8 @@ public class TransactionService {
         transaction.setToAccountId(toAccount.getAccountNumber());
         transaction.setAmount(amount);
         transaction.setTimestamp(LocalDateTime.now());
-
+        // include from blockchain if present if not hard code it
+        transaction.setTransactionId(AccountUtil.generateAccountNumber());
         fromAccount.setBalance(fromAccount.getBalance() - amount);
         toAccount.setBalance(toAccount.getBalance() + amount);
 

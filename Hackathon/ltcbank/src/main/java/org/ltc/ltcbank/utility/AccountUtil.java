@@ -5,6 +5,7 @@ import org.ltc.ltcbank.entity.Account;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class AccountUtil {
 
@@ -19,5 +20,11 @@ public class AccountUtil {
             accountDTOs.add(accountDTO);
         }
         return accountDTOs;
+    }
+
+    public static Long generateAccountNumber() {
+        long timestamp = System.currentTimeMillis();
+        int randomNumber = new Random().nextInt(900000) + 100000;
+        return timestamp + randomNumber;
     }
 }

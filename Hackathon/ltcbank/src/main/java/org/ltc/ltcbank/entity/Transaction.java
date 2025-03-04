@@ -18,7 +18,7 @@ public class Transaction {
     private Long toAccountId;
     private Double amount;
     private LocalDateTime timestamp;
-
+    private Long transactionId;
     @ManyToOne
     private Account account;
 

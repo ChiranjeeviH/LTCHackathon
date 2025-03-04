@@ -7,6 +7,7 @@ import org.ltc.ltcbank.entity.Account;
 import org.ltc.ltcbank.entity.User;
 import org.ltc.ltcbank.service.AccountService;
 import org.ltc.ltcbank.service.UserService;
+import org.ltc.ltcbank.utility.AccountUtil;
 import org.ltc.ltcbank.utility.UserInfoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class UserController {
         User registeredUser = userService.register(user);
         Account account = new Account();
         account.setUser(registeredUser);
-        account.setAccountNumber(generateAccountNumber());
+        account.setAccountNumber(AccountUtil.generateAccountNumber());
         account.setBalance(user.getInitialBalance()!=null ? user.getInitialBalance() : 0.0);
         Account savedAccount = accountService.createAccount(account);
         return "Account Created Successfully " + savedAccount.getAccountNumber();
@@ -46,12 +47,6 @@ public class UserController {
     @PostMapping("/logout")
     public String logout() {
         return userService.logout();
-    }
-
-    private Long generateAccountNumber() {
-        long timestamp = System.currentTimeMillis();
-        int randomNumber = new Random().nextInt(900000) + 100000;
-        return timestamp + randomNumber;
     }
 
 }
