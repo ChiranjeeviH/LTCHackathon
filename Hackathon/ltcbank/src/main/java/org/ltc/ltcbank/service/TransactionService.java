@@ -25,14 +25,14 @@ public class TransactionService {
         // Implement the logic for transferring funds
         // For now, just returning a new Transaction object
         Transaction transaction = new Transaction();
-        transaction.setFromAccountId(fromAccount.getId());
-        transaction.setToAccountId(toAccount.getId());
+        transaction.setFromAccountId(fromAccount.getAccountNumber());
+        transaction.setToAccountId(toAccount.getAccountNumber());
         transaction.setAmount(amount);
         transaction.setTimestamp(LocalDateTime.now());
         return TransactionUtil.getTransactionDTO(transactionRepository.save(transaction));
     }
 
-    public List<TransactionDTO> getAllTransaction() {
+    public List<TransactionDTO> getAllTransactions() {
         List<Transaction> transactionsList =  transactionRepository.findAll();
 
         return TransactionUtil.getAlTransactionDTO(transactionsList);
