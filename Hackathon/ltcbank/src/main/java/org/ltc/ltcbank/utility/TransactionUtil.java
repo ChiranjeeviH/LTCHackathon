@@ -10,6 +10,7 @@ public class TransactionUtil {
 
     public static List<TransactionDTO> getAlTransactionDTO(List<Transaction> transactions) {
         List<TransactionDTO> transactionDTOS = new ArrayList<>();
+        String testnetUrl = "https://testnet.bscscan.com/tx/";
         for(Transaction transaction : transactions) {
             TransactionDTO transactionDTO = new TransactionDTO();
             transactionDTO.setId(transaction.getId());
@@ -18,6 +19,9 @@ public class TransactionUtil {
             transactionDTO.setAmount(transaction.getAmount());
             transactionDTO.setTimestamp(transaction.getTimestamp().toString());
             transactionDTO.setTransactionId(transaction.getTransactionId());
+            transactionDTO.setBlockChainReceiverLink(testnetUrl+transaction.getTransferLink());
+            transactionDTO.setBlockChaonStableCoinLink(testnetUrl+transaction.getStableToToLink());
+            transactionDTO.setBlockChainSenderLink(testnetUrl+transaction.getFromToStableLink());
             transactionDTOS.add(transactionDTO);
         }
 
