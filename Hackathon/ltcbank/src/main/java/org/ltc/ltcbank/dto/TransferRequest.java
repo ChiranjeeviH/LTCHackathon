@@ -10,5 +10,7 @@ public class TransferRequest {
     private Long fromAccountId;
     private Long toAccountId;
     private Double amount;
+    private String fromCurrency = "gbp";
+    private String toCurrency = "euro";
 
 }

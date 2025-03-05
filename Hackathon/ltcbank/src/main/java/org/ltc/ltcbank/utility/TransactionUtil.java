@@ -19,22 +19,26 @@ public class TransactionUtil {
             transactionDTO.setAmount(transaction.getAmount());
             transactionDTO.setTimestamp(transaction.getTimestamp().toString());
             transactionDTO.setTransactionId(transaction.getTransactionId());
-            transactionDTO.setBlockChainReceiverLink(testnetUrl+transaction.getTransferLink());
-            transactionDTO.setBlockChaonStableCoinLink(testnetUrl+transaction.getStableToToLink());
+            transactionDTO.setBlockChainReceiverLink(testnetUrl+transaction.getStableToToLink());
+            transactionDTO.setBlockChaonStableCoinLink(testnetUrl+transaction.getTransferLink());
             transactionDTO.setBlockChainSenderLink(testnetUrl+transaction.getFromToStableLink());
             transactionDTOS.add(transactionDTO);
         }
-
         return transactionDTOS;
     }
 
     public static TransactionDTO getTransactionDTO(Transaction transaction) {
         TransactionDTO transactionDTO = new TransactionDTO();
+        String testnetUrl = "https://testnet.bscscan.com/tx/";
         transactionDTO.setId(transaction.getId());
         transactionDTO.setFromAccountId(transaction.getFromAccountId());
         transactionDTO.setToAccountId(transaction.getToAccountId());
         transactionDTO.setAmount(transaction.getAmount());
         transactionDTO.setTimestamp(transaction.getTimestamp().toString());
+        transactionDTO.setTransactionId(transaction.getTransactionId());
+        transactionDTO.setBlockChainReceiverLink(testnetUrl+transaction.getTransferLink());
+        transactionDTO.setBlockChaonStableCoinLink(testnetUrl+transaction.getStableToToLink());
+        transactionDTO.setBlockChainSenderLink(testnetUrl+transaction.getFromToStableLink());
         return transactionDTO;
     }
 }

@@ -38,7 +38,7 @@ public class TransactionController {
         Account fromAccount = accountService.findByAccountNumber(transferRequest.getFromAccountId());
         Account toAccount = accountService.findByAccountNumber(transferRequest.getToAccountId());
         if (!ObjectUtils.isEmpty(fromAccount) && !ObjectUtils.isEmpty(toAccount)) {
-            return transactionService.transferFunds(fromAccount, toAccount, transferRequest.getAmount());
+            return transactionService.transferFunds(fromAccount, toAccount, transferRequest.getAmount(),transferRequest.getFromCurrency(),transferRequest.getToCurrency());
         }
         return null;
     }

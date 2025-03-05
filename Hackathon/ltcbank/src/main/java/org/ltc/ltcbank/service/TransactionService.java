@@ -39,7 +39,7 @@ public class TransactionService {
         return transactionRepository.findByTransactionId(transactionId);
     }
 
-    public TransactionDTO transferFunds(Account fromAccount, Account toAccount, Double amount) {
+    public TransactionDTO transferFunds(Account fromAccount, Account toAccount, Double amount,String fromCurrency,String toCurrency) {
         if (fromAccount.getBalance() < amount) {
             throw new RuntimeException("Insufficient funds to transfer");
         }
@@ -50,11 +50,13 @@ public class TransactionService {
         transaction.setAmount(amount);
         transaction.setTimestamp(LocalDateTime.now());
         // include from blockchain if present if not hard code it
-        BlockChainTransferResponse response = makeBlockChainRequest(fromAccount,toAccount,amount);
+        BlockChainTransferResponse response = makeBlockChainRequest(fromAccount,toAccount,amount,fromCurrency,toCurrency);
         transaction.setTransactionId(AccountUtil.generateAccountNumber());
         fromAccount.setBalance(fromAccount.getBalance() - amount);
         toAccount.setBalance(toAccount.getBalance() + amount);
-
+        transaction.setFromToStableLink(response.getTransactions().getFromToStable());
+        transaction.setStableToToLink(response.getTransactions().getStableToTo());
+        transaction.setTransferLink(response.getTransactions().getTransfer());
         transactionRepository.save(transaction);
 
         accountRepository.save(fromAccount);
@@ -69,13 +71,13 @@ public class TransactionService {
         return TransactionUtil.getAlTransactionDTO(transactionsList);
     }
 
-    public BlockChainTransferResponse makeBlockChainRequest(Account fromAccount, Account toAccount, Double amount) {
+    public BlockChainTransferResponse makeBlockChainRequest(Account fromAccount, Account toAccount, Double amount,String fromCurrency,String toCurrency) {
 
         //Make REST template call
         BlockChainTransferRequest request = new BlockChainTransferRequest();
         request.setCurrency("gbp");
         request.setFromCurrency("gbp");
-        request.setToCurrency("eur");
+        request.setToCurrency("euro");
         request.setReceiverAccountId(toAccount.getAccountNumber());
         request.setReceiverCountryId(1l);
         request.setReceiverBankId(1l);
