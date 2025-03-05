@@ -12,5 +12,8 @@ public class TransactionDTO {
     private Double amount;
     private String timestamp;
     private Long transactionId;
+    private String blockChainReceiverLink;
+    private String blockChainSenderLink;
+    private String blockChaonStableCoinLink;
    // private Long accountId;
 }

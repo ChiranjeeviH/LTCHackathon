@@ -21,5 +21,7 @@ public class Transaction {
     private Long transactionId;
     @ManyToOne
     private Account account;
-
+    private String fromToStableLink;
+    private String transferLink;
+    private String stableToToLink;
 }
